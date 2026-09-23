@@ -1,0 +1,8 @@
+<meta>
+    <info author="PlayasEmre" type="script" name="ICE-Crypt Loader" version="1.0" description="ICE-Crypt Loader – ICEENC1/ICEXOR1" />
+
+    <script src="loader.luac"        type="server" />
+    <script src="client_loader.luac" type="client" />
+
+    <file src="ice_config.txt" />
+</meta>

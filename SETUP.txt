@@ -1,0 +1,111 @@
+╔══════════════════════════════════════════════════════════════╗
+║              ICE-Crypt  –  MTA San Andreas                   ║
+║                    by PlayasEmre                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🇩🇪  DEUTSCH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INHALT
+  ICE-Crypt-Encrypt.exe   – Scripts nur verschlüsseln
+  MTASA-crypto/           – Loader-Dateien (in deine Resource kopieren)
+
+SCHRITT 1 – Scripts verschlüsseln
+  1. ICE-Crypt-Encrypt.exe öffnen
+  2. Lua-Dateien per Drag & Drop oder "Ordner" hinzufügen
+     → [C] = Client-Script  |  [S] = Server-Script  (auto-erkannt)
+  3. Schlüssel wird automatisch generiert
+  4. "ENCRYPT" klicken
+  → Tool erstellt automatisch:
+     • .lua.enc  (verschlüsselte Scripts)
+     • _manifest.txt  (Dateiliste für den Loader)
+     • _key.txt  (Schlüsseldatei – NIEMALS veröffentlichen!)
+     • meta.xml wird automatisch angepasst
+
+SCHRITT 2 – Loader in deine Resource einbinden
+  1. Aus MTASA-crypto/ folgende Dateien in deinen Resource-Ordner kopieren:
+       loader.lua  (oder .luac)
+       client_loader.lua  (oder .luac)
+       ice_config.txt
+  2. loader.lua + client_loader.lua auf luac.mtasa.com kompilieren
+     → schützt den Loader-Code (.luac)
+  3. In der meta.xml deiner Resource hinzufügen:
+       <script src="loader.luac"        type="server" />
+       <script src="client_loader.luac" type="client" />
+  4. Resource neu starten
+
+SPRACHE DES LOADERS ÄNDERN
+  ice_config.txt in deiner Resource öffnen → LANG=DE auf EN oder TR
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🇬🇧  ENGLISH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CONTENTS
+  ICE-Crypt-Encrypt.exe   – Encrypt scripts only
+  MTASA-crypto/           – Loader files (copy into your resource)
+
+STEP 1 – Encrypt scripts
+  1. Open ICE-Crypt-Encrypt.exe
+  2. Add Lua files via drag & drop or the "Folder" button
+     → [C] = Client script  |  [S] = Server script  (auto-detected)
+  3. A key is generated automatically
+  4. Click "ENCRYPT"
+  → The tool automatically creates:
+     • .lua.enc  (encrypted scripts)
+     • _manifest.txt  (file list for the loader)
+     • _key.txt  (key file – NEVER publish this!)
+     • meta.xml is updated automatically
+
+STEP 2 – Add the loader to your resource
+  1. Copy these files from MTASA-crypto/ into your resource folder:
+       loader.lua  (or .luac)
+       client_loader.lua  (or .luac)
+       ice_config.txt
+  2. Compile loader.lua + client_loader.lua on luac.mtasa.com
+     → protects the loader code (.luac)
+  3. Add to your resource's meta.xml:
+       <script src="loader.luac"        type="server" />
+       <script src="client_loader.luac" type="client" />
+  4. Restart the resource
+
+CHANGE LOADER LANGUAGE
+  Open ice_config.txt in your resource → change LANG=EN to DE or TR
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🇹🇷  TÜRKÇE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+İÇERİK
+  ICE-Crypt-Encrypt.exe   – Yalnızca script şifreleme
+  MTASA-crypto/           – Yükleyici dosyalar (resource'una kopyala)
+
+ADIM 1 – Scriptleri şifrele
+  1. ICE-Crypt-Encrypt.exe'yi aç
+  2. Lua dosyalarını sürükle-bırak veya "Klasör" ile ekle
+     → [C] = İstemci scripti  |  [S] = Sunucu scripti  (otomatik)
+  3. Anahtar otomatik oluşturulur
+  4. "ENCRYPT" butonuna tıkla
+  → Araç otomatik olarak oluşturur:
+     • .lua.enc  (şifreli scriptler)
+     • _manifest.txt  (yükleyici için dosya listesi)
+     • _key.txt  (anahtar dosyası – ASLA yayınlama!)
+     • meta.xml otomatik güncellenir
+
+ADIM 2 – Yükleyiciyi resource'una ekle
+  1. MTASA-crypto/ klasöründen şu dosyaları resource klasörüne kopyala:
+       loader.lua  (veya .luac)
+       client_loader.lua  (veya .luac)
+       ice_config.txt
+  2. loader.lua + client_loader.lua'yı luac.mtasa.com'da derle
+     → loader kodunu korur (.luac)
+  3. Resource'unun meta.xml dosyasına ekle:
+       <script src="loader.luac"        type="server" />
+       <script src="client_loader.luac" type="client" />
+  4. Resource'u yeniden başlat
+
+LOADER DİLİNİ DEĞİŞTİR
+  Resource'undaki ice_config.txt'yi aç → LANG=TR değerini DE veya EN yap
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

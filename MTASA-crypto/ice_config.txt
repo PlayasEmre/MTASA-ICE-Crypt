@@ -1,0 +1,3 @@
+# ICE-Crypt Loader – Konfiguration
+# Sprache / Language / Dil: DE | EN | TR
+LANG=EN
