@@ -1,111 +1,147 @@
 ╔══════════════════════════════════════════════════════════════╗
 ║              ICE-Crypt  –  MTA San Andreas                   ║
-║                    by PlayasEmre                             ║
+║                    by PlayasEmre                              ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🇩🇪  DEUTSCH
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-INHALT
-  ICE-Crypt-Encrypt.exe   – Scripts nur verschlüsseln
-  MTASA-crypto/           – Loader-Dateien (in deine Resource kopieren)
+EINMALIGE EINRICHTUNG (nur beim allerersten Mal nötig)
 
-SCHRITT 1 – Scripts verschlüsseln
-  1. ICE-Crypt-Encrypt.exe öffnen
-  2. Lua-Dateien per Drag & Drop oder "Ordner" hinzufügen
-     → [C] = Client-Script  |  [S] = Server-Script  (auto-erkannt)
-  3. Schlüssel wird automatisch generiert
-  4. "ENCRYPT" klicken
-  → Tool erstellt automatisch:
-     • .lua.enc  (verschlüsselte Scripts)
-     • _manifest.txt  (Dateiliste für den Loader)
-     • _key.txt  (Schlüsseldatei – NIEMALS veröffentlichen!)
-     • meta.xml wird automatisch angepasst
+1. loader.lua und client_loader.lua (aus MTASA-crypto\) je einmal auf
+   luac.mtasa.com hochladen und kompilieren.
+   → Die beiden entstehenden .luac-Dateien in MTASA-crypto\ ablegen
+     (überschreibt evtl. vorhandene .luac dort).
+   → Dieser Ordner MTASA-crypto\ muss immer NEBEN der .exe liegen –
+     das Tool kopiert daraus automatisch in jede neue Resource.
 
-SCHRITT 2 – Loader in deine Resource einbinden
-  1. Aus MTASA-crypto/ folgende Dateien in deinen Resource-Ordner kopieren:
-       loader.lua  (oder .luac)
-       client_loader.lua  (oder .luac)
-       ice_config.txt
-  2. loader.lua + client_loader.lua auf luac.mtasa.com kompilieren
-     → schützt den Loader-Code (.luac)
-  3. In der meta.xml deiner Resource hinzufügen:
-       <script src="loader.luac"        type="server" />
-       <script src="client_loader.luac" type="client" />
-  4. Resource neu starten
+Das war's mit dem Einmal-Kram. Ab jetzt läuft alles automatisch.
+
+NORMALER ABLAUF (für jede Datei / jedes Script)
+
+1. ICE-Crypt-Encrypt.exe öffnen
+2. Lua-Datei(en) per Drag & Drop in den Resource-Ordner-Bereich ziehen
+   → [C] = Client-Script  |  [S] = Server-Script  (automatisch erkannt)
+3. "ENCRYPT" klicken
+
+  Das Tool macht automatisch ALLES Weitere:
+    • verschlüsselt die Datei(en)  → .lua.enc
+    • schreibt _manifest.txt
+    • erstellt/liest _key.txt
+    • kopiert loader.luac, client_loader.luac, ice_config.txt
+      in den Resource-Ordner (falls noch nicht vorhanden)
+    • trägt loader.luac / client_loader.luac / ice_config.txt
+      und den aclrequest-Block in die meta.xml ein (falls noch nicht drin)
+
+4. Resource im MTA-Server starten:  restart <resourceName>
+
+5. NUR BEIM ALLERERSTEN START einer neuen Resource, einmalig in der
+   MTA-Server-Konsole (schwarzes Fenster):
+       aclrequest allow <resourceName> function.loadstring
+   → Danach: restart <resourceName>
+   Das ist eine MTA-Sicherheitssperre, die kein Script automatisch
+   umgehen kann – nur ein Admin darf das per Konsole freigeben.
+   Einmal erledigt, bleibt es für diese Resource dauerhaft erlaubt.
+
+Ab dann: einfach Dateien verschlüsseln und in den Ordner werfen –
+alles andere passiert von selbst.
 
 SPRACHE DES LOADERS ÄNDERN
-  ice_config.txt in deiner Resource öffnen → LANG=DE auf EN oder TR
+  ice_config.txt in der Resource öffnen → LANG=DE auf EN oder TR
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🇬🇧  ENGLISH
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CONTENTS
-  ICE-Crypt-Encrypt.exe   – Encrypt scripts only
-  MTASA-crypto/           – Loader files (copy into your resource)
+ONE-TIME SETUP (only needed the very first time)
 
-STEP 1 – Encrypt scripts
-  1. Open ICE-Crypt-Encrypt.exe
-  2. Add Lua files via drag & drop or the "Folder" button
-     → [C] = Client script  |  [S] = Server script  (auto-detected)
-  3. A key is generated automatically
-  4. Click "ENCRYPT"
-  → The tool automatically creates:
-     • .lua.enc  (encrypted scripts)
-     • _manifest.txt  (file list for the loader)
-     • _key.txt  (key file – NEVER publish this!)
-     • meta.xml is updated automatically
+1. Upload loader.lua and client_loader.lua (from MTASA-crypto\) to
+   luac.mtasa.com once and compile them.
+   → Save the two resulting .luac files into MTASA-crypto\
+     (overwrite any existing .luac there).
+   → This MTASA-crypto\ folder must always sit NEXT TO the .exe –
+     the tool copies from it into every new resource automatically.
 
-STEP 2 – Add the loader to your resource
-  1. Copy these files from MTASA-crypto/ into your resource folder:
-       loader.lua  (or .luac)
-       client_loader.lua  (or .luac)
-       ice_config.txt
-  2. Compile loader.lua + client_loader.lua on luac.mtasa.com
-     → protects the loader code (.luac)
-  3. Add to your resource's meta.xml:
-       <script src="loader.luac"        type="server" />
-       <script src="client_loader.luac" type="client" />
-  4. Restart the resource
+That's the only one-time step. From here on everything is automatic.
+
+NORMAL WORKFLOW (for every file / every script)
+
+1. Open ICE-Crypt-Encrypt.exe
+2. Drag & drop Lua file(s) into the file list
+   → [C] = Client script  |  [S] = Server script  (auto-detected)
+3. Click "ENCRYPT"
+
+  The tool automatically does EVERYTHING else:
+    • encrypts the file(s)  → .lua.enc
+    • writes _manifest.txt
+    • creates/reads _key.txt
+    • copies loader.luac, client_loader.luac, ice_config.txt
+      into the resource folder (if not already present)
+    • adds loader.luac / client_loader.luac / ice_config.txt
+      and the aclrequest block to meta.xml (if not already there)
+
+4. Start the resource on the MTA server:  restart <resourceName>
+
+5. ONLY ON THE VERY FIRST START of a new resource, once in the
+   MTA server console (black window):
+       aclrequest allow <resourceName> function.loadstring
+   → Then: restart <resourceName>
+   This is an MTA security gate that no script can bypass
+   automatically – only an admin can approve it via console.
+   Once done, it stays approved for that resource permanently.
+
+From then on: just encrypt files and drop them in the folder –
+everything else happens on its own.
 
 CHANGE LOADER LANGUAGE
-  Open ice_config.txt in your resource → change LANG=EN to DE or TR
+  Open ice_config.txt in the resource → change LANG=EN to DE or TR
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🇹🇷  TÜRKÇE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-İÇERİK
-  ICE-Crypt-Encrypt.exe   – Yalnızca script şifreleme
-  MTASA-crypto/           – Yükleyici dosyalar (resource'una kopyala)
+TEK SEFERLİK KURULUM (yalnızca ilk seferde gerekli)
 
-ADIM 1 – Scriptleri şifrele
-  1. ICE-Crypt-Encrypt.exe'yi aç
-  2. Lua dosyalarını sürükle-bırak veya "Klasör" ile ekle
-     → [C] = İstemci scripti  |  [S] = Sunucu scripti  (otomatik)
-  3. Anahtar otomatik oluşturulur
-  4. "ENCRYPT" butonuna tıkla
-  → Araç otomatik olarak oluşturur:
-     • .lua.enc  (şifreli scriptler)
-     • _manifest.txt  (yükleyici için dosya listesi)
-     • _key.txt  (anahtar dosyası – ASLA yayınlama!)
-     • meta.xml otomatik güncellenir
+1. loader.lua ve client_loader.lua dosyalarını (MTASA-crypto\ içinden)
+   birer kez luac.mtasa.com'a yükleyip derle.
+   → Ortaya çıkan iki .luac dosyasını MTASA-crypto\ içine kaydet
+     (orada varsa eski .luac dosyalarının üzerine yaz).
+   → Bu MTASA-crypto\ klasörü her zaman .exe'nin YANINDA durmalı –
+     araç oradan her yeni resource'a otomatik olarak kopyalar.
 
-ADIM 2 – Yükleyiciyi resource'una ekle
-  1. MTASA-crypto/ klasöründen şu dosyaları resource klasörüne kopyala:
-       loader.lua  (veya .luac)
-       client_loader.lua  (veya .luac)
-       ice_config.txt
-  2. loader.lua + client_loader.lua'yı luac.mtasa.com'da derle
-     → loader kodunu korur (.luac)
-  3. Resource'unun meta.xml dosyasına ekle:
-       <script src="loader.luac"        type="server" />
-       <script src="client_loader.luac" type="client" />
-  4. Resource'u yeniden başlat
+Tek seferlik iş bu kadar. Bundan sonra her şey otomatik çalışır.
+
+NORMAL AKIŞ (her dosya / her script için)
+
+1. ICE-Crypt-Encrypt.exe'yi aç
+2. Lua dosyalarını sürükle-bırak ile listeye ekle
+   → [C] = İstemci scripti  |  [S] = Sunucu scripti  (otomatik algılanır)
+3. "ENCRYPT" butonuna tıkla
+
+  Araç geri kalan HER ŞEYİ otomatik yapar:
+    • dosyaları şifreler  → .lua.enc
+    • _manifest.txt yazar
+    • _key.txt oluşturur/okur
+    • loader.luac, client_loader.luac, ice_config.txt dosyalarını
+      resource klasörüne kopyalar (henüz yoksa)
+    • loader.luac / client_loader.luac / ice_config.txt ve
+      aclrequest bloğunu meta.xml'e ekler (henüz yoksa)
+
+4. Resource'u MTA sunucusunda başlat:  restart <resourceName>
+
+5. Yeni bir resource'un YALNIZCA İLK BAŞLATILMASINDA, MTA sunucu
+   konsolunda (siyah pencere) bir kez:
+       aclrequest allow <resourceName> function.loadstring
+   → Sonra: restart <resourceName>
+   Bu, hiçbir scriptin otomatik olarak atlayamayacağı bir MTA
+   güvenlik kilididir – yalnızca bir admin konsoldan onaylayabilir.
+   Bir kez yapıldıktan sonra o resource için kalıcı olarak onaylı kalır.
+
+Bundan sonra: sadece dosyaları şifrele ve klasöre bırak –
+geri kalan her şey kendiliğinden olur.
 
 LOADER DİLİNİ DEĞİŞTİR
-  Resource'undaki ice_config.txt'yi aç → LANG=TR değerini DE veya EN yap
+  Resource'daki ice_config.txt'yi aç → LANG=TR değerini DE veya EN yap
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
